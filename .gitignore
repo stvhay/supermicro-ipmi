@@ -1,0 +1,29 @@
+# Claude Code per-user / per-session state
+.claude/.statusline-stats
+.claude/settings.local.json
+
+# direnv
+.direnv/
+
+# Local-only env (may contain secrets/tokens)
+.envrc.local.d/
+
+# Worktrees created by /using-git-worktrees
+.worktrees/
+
+# OS / editor cruft
+.DS_Store
+*.swp
+*.swo
+Thumbs.db
+
+# Python (flake provides uv/python; ignore caches if any tooling runs)
+__pycache__/
+*.pyc
+.venv/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+
+# Node (in case userscript tooling shows up later)
+node_modules/

@@ -1,0 +1,60 @@
+name: Bug Report
+description: Report a bug or unexpected behavior in the userscript
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! Please include enough detail to reproduce on a Supermicro IPMI device.
+  - type: input
+    id: bmc-firmware
+    attributes:
+      label: BMC firmware version
+      description: From the IPMI UI's System → Component Info, or the login banner.
+      placeholder: e.g. 01.74.10
+    validations:
+      required: false
+  - type: input
+    id: motherboard
+    attributes:
+      label: Motherboard / BMC chip
+      description: e.g. X11SCH-F (AST2500), H12SSL-i (AST2600)
+    validations:
+      required: false
+  - type: input
+    id: browser
+    attributes:
+      label: Browser + userscript manager
+      description: e.g. Firefox 124 + Greasemonkey 4.11, Chrome 122 + Tampermonkey 5.1
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the bug. Include error messages from the browser console if any.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the IPMI console at https://...
+        2. Navigate to ...
+        3. See ...
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Screenshots, console logs, or anything else relevant.
+    validations:
+      required: false

@@ -1,0 +1,42 @@
+name: Feature Request
+description: Propose a new fix or improvement to the IPMI experience
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing! Describe the IPMI annoyance you'd like to fix or feature you want to add.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or motivation
+      description: What's the IPMI pain point this addresses?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: High-level approach. If it touches the userscript, note which page(s) and which DOM hooks.
+    validations:
+      required: true
+  - type: input
+    id: scope
+    attributes:
+      label: Affected firmware / boards
+      description: Does this only apply to certain BMC firmware versions or motherboards?
+      placeholder: e.g. all AST2600, or X11 only
+    validations:
+      required: false
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+    validations:
+      required: false
