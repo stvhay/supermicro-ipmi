@@ -148,9 +148,7 @@
             );
         }
         if (!rfb || !rfb._sock || typeof rfb._sock.send !== 'function') {
-            throw new Error(
-                'This iKVM build is missing RFB.messages.keyEvent — paste-userscript not compatible.'
-            );
+            throw new Error('iKVM socket unavailable.');
         }
         const bytes = RFB.messages.keyEvent(keysym, down ? 1 : 0);
         rfb._sock.send(bytes);
@@ -212,33 +210,33 @@
             return;
         }
 
-        // Re-check RFB readiness at paste time.
+        _pasteInFlight = true;
         try {
-            if (!(window.UI && window.UI.rfb &&
-                  window.UI.rfb._rfb_state === 'normal')) {
+            // Re-check RFB readiness at paste time.
+            try {
+                if (!(window.UI && window.UI.rfb &&
+                      window.UI.rfb._rfb_state === 'normal')) {
+                    toast('iKVM not connected — try again once the console is live.');
+                    return;
+                }
+            } catch (_) {
                 toast('iKVM not connected — try again once the console is live.');
                 return;
             }
-        } catch (_) {
-            toast('iKVM not connected — try again once the console is live.');
-            return;
-        }
 
-        let text;
-        try {
-            text = await navigator.clipboard.readText();
-        } catch (_) {
-            toast('Clipboard read denied — grant permission in the browser address bar.');
-            return;
-        }
+            let text;
+            try {
+                text = await navigator.clipboard.readText();
+            } catch (_) {
+                toast('Clipboard read denied — grant permission in the browser address bar.');
+                return;
+            }
 
-        if (!text || text.length === 0) {
-            toast('Clipboard is empty.');
-            return;
-        }
+            if (!text || text.length === 0) {
+                toast('Clipboard is empty.');
+                return;
+            }
 
-        _pasteInFlight = true;
-        try {
             await sendPaste(text);
         } finally {
             _pasteInFlight = false;
