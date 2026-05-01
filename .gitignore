@@ -16,6 +16,9 @@ research/captures/
 # Worktrees created by /using-git-worktrees
 .worktrees/
 
+# Session-state file written by the harness's UserPromptSubmit hook
+.issue
+
 # OS / editor cruft
 .DS_Store
 *.swp
