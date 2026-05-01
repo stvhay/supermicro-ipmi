@@ -1,5 +1,5 @@
 {
-  description = "my-claude-plugins development environment";
+  description = "supermicro-ipmi userscript devshell";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -18,9 +18,18 @@
         {
           default = pkgs.mkShell {
             buildInputs = with pkgs; [
+              # base toolchain
               uv
               python313
               ruff
+
+              # network / VPN client (OpenVPN talks to the BMC's network)
+              openvpn
+
+              # research & decode
+              websocat                  # talk WebSocket from the CLI
+              js-beautify               # un-minify the IPMI's JS bundles
+              html-tidy                 # pretty-print captured HTML
             ];
             shellHook = ''
               true
