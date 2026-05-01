@@ -7,6 +7,11 @@
 
 # Local-only env (may contain secrets/tokens)
 .envrc.local.d/
+openvpn-profile.txt
+
+# Session handoff notes (may contain sensitive network topology)
+TURNOVER.md
+research/captures/
 
 # Worktrees created by /using-git-worktrees
 .worktrees/
