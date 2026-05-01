@@ -9,8 +9,10 @@ and paste work, and growing from there.
 ```
 userscripts/        Userscripts (one .user.js per script)
 scripts/            Helper shell/Python scripts
+docs/               Architecture / design docs
+research/notes/     Empirical findings (probes, protocol traces)
 .github/            Issue + PR templates
-flake.nix           Nix devshell (uv, python313, ruff)
+flake.nix           Nix devshell (uv, python313, ruff, openvpn, websocat, ...)
 .envrc              direnv loader; sources .envrc.d/ then .envrc.local.d/
 ```
 
@@ -65,12 +67,21 @@ strings are inconsistent across boards.
 ## Dev environment
 
 `direnv allow` once on entry. The flake provides `uv`, `python313`, and
-`ruff` for any tooling that shows up later. There is no Python code in
-the project today.
+`ruff` for any tooling that shows up later, plus `openvpn`, `websocat`,
+`js-beautify`, and `html-tidy` for talking to BMCs and inspecting their
+JS bundles. There is no Python code in the project today.
 
 ## First feature: copy/paste in the iKVM/console
 
 The flagship pain point: the IPMI HTML5 console swallows clipboard events,
-so you can't paste a password or copy log output out. The first userscript
-should make at least one direction (host → clipboard, or clipboard → host)
-work in the standard browser way.
+so you can't paste a password or copy log output out.
+
+Research (see `research/notes/`) established that the iKVM HTML5 console
+is a noVNC fork; the RFB clipboard plumbing is intact in `rfb.js` but
+never wired up by the UI. **However**, the BMC drops `ClientCutText` and
+never emits `ServerCutText` (probed) — hardware KVM-over-IP has no
+in-guest VNC clipboard agent, so the RFB clipboard channel can't be used.
+
+The first userscript (`ikvm-paste`, issue #2) is therefore browser → host
+only, implemented as type-as-keystrokes via synthesized RFB `KeyEvent`
+messages. Host → browser is out of scope without framebuffer OCR.
