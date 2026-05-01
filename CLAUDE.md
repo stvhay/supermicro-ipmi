@@ -9,8 +9,10 @@ and paste work, and growing from there.
 ```
 userscripts/        Userscripts (one .user.js per script)
 scripts/            Helper shell/Python scripts
+docs/               Architecture / design docs
+research/notes/     Empirical findings (probes, protocol traces)
 .github/            Issue + PR templates
-flake.nix           Nix devshell (uv, python313, ruff)
+flake.nix           Nix devshell (uv, python313, ruff, openvpn, websocat, ...)
 .envrc              direnv loader; sources .envrc.d/ then .envrc.local.d/
 ```
 
